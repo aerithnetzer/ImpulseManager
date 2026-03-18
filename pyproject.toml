@@ -1,0 +1,17 @@
+[project]
+name = "impulsemanager"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "boto3>=1.42.70",
+    "django-mongodb-backend==6.0.*",
+    "fireworks>=2.0.9",
+    "fitz>=0.0.1.dev2",
+    "frontend>=0.0.3",
+    "loguru>=0.7.3",
+    "opencv-python>=4.13.0.92",
+    "pillow>=12.1.1",
+    "requests>=2.32.5",
+]

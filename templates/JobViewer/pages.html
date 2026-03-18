@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Viewer</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; background: #f5f5f5; }
+        h1 { color: #333; }
+        .page-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .badge {
+            display: inline-block;
+            background: #e0f0ff;
+            color: #0066cc;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        .content-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            align-items: flex-start;
+        }
+        .page-image {
+            width: 300px;
+            flex-shrink: 0;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+        .html-preview {
+            flex: 1;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+        }
+        .html-part {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .html-part:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .no-image { color: #999; font-style: italic; font-size: 0.9rem; }
+        .no-html { color: #bbb; font-style: italic; font-size: 0.85rem; }
+        .meta {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 0.75rem;
+            border-top: 1px solid #eee;
+            padding-top: 0.75rem;
+        }
+        .meta span { margin-right: 1.5rem; }
+    </style>
+</head>
+<body>
+    <h1>Pages <small style="color:#999; font-size:0.7em;">({{ pages|length }} shown)</small></h1>
+
+    {% if pages %}
+        {% for item in pages %}
+        <div class="page-card">
+            <h2>Page {{ item.page.page_number }} &mdash; {{ item.page.id }}</h2>
+            <span class="badge">{{ item.page.block_type }}</span>
+
+            <div class="content-row">
+                {% if item.jpg_b64 %}
+                    <img class="page-image"
+                         src="data:image/jpeg;base64,{{ item.jpg_b64 }}"
+                         alt="Page {{ item.page.page_number }}">
+                {% else %}
+                    <p class="no-image">⚠ No image available.</p>
+                {% endif %}
+
+                <div class="html-preview">
+                    {% if item.html_parts %}
+                        {% for part in item.html_parts %}
+                            <div class="html-part">{{ part|safe }}</div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-html">No HTML content found in children.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="meta">
+                <span><strong>Accession #:</strong> {{ item.page.accession_number }}</span>
+                <span><strong>Page #:</strong> {{ item.page.page_number }}</span>
+                <span><strong>Block Type:</strong> {{ item.page.block_type }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No pages found.</p>
+    {% endif %}
+</body>
+</html>
