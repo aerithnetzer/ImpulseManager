@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.contrib import messages
-from .models import Page
+from .models import Page, Workflow
 import base64
 
 S3_BUCKET = "nu-impulse-production"
+
+def workflows(request: HttpRequest):
+    workflows = Workflow.objects.sort("desc")
 
 def extract_html(node):
     results = []

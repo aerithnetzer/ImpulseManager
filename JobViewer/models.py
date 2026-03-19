@@ -1,6 +1,15 @@
 from django.db import models
 from django_mongodb_backend.fields import ArrayField
 
+class Workflow(models.Model):
+    state: models.CharField = models.CharField(max_length=30)
+    last_updated: models.DateTimeField = models.DateTimeField()
+    class Meta:
+        app_label = "JobViewer"
+        db_table = "fireworks"
+
+    pass
+
 class Page(models.Model):
     id: models.CharField = models.CharField(max_length=120)
     block_type: models.CharField = models.CharField(max_length=20)

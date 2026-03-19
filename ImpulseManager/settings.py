@@ -79,7 +79,13 @@ DATABASES = {
         'HOST': os.getenv("MONGODB_OCR_DEVELOPMENT_CONN_STRING_IMPULSE"),
         'NAME': 'praxis'
         
+    },
+    'fireworks': {
+        'ENGINE': 'django_mongodb_backend',
+        'HOST': os.getenv("MONGODB_OCR_DEVELOPMENT_CONN_STRING_IMPULSE"),
+        'NAME': 'fireworks'
     }
+    
 }
 
 
